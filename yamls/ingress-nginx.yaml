@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gateway-nginx
+  namespace: proyecto2
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: nginx.proy2sop1usac.tk
+    http:
+      paths:
+        - backend:
+            serviceName: kubgolang-srv
+            servicePort: 8080
+          path: /
