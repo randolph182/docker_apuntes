@@ -1,0 +1,40 @@
+apiVersion: v1
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kubgolang
+  name: kubgolang
+  namespace: proyecto2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubgolang
+  template:
+    metadata:
+      labels:
+        app: kubgolang
+    spec:
+      containers:
+      - image: randolph182/golang-webserver
+        name: golang-webserver
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: kubgolang
+  name: kubgolang-srv
+  namespace: proyecto2
+spec:
+  clusterIP: 10.24.10.39
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: kubgolang
+  type: ClusterIP
