@@ -10,8 +10,6 @@ RUN go get -d -v ./...
 
 RUN go build -o /go/bin/app
 
-RUN go get github.com/nats-io/nats.go/
-
 # Now copy it into our base image.
 FROM gcr.io/distroless/base-debian10
 COPY --from=build /go/bin/app /
