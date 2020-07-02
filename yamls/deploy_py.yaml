@@ -1,0 +1,39 @@
+apiVersion: v1
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kubpy
+  name: kubpy
+  namespace: proyecto2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kubpy
+  template:
+    metadata:
+      labels:
+        app: kubkpy
+    spec:
+      containers:
+      - image: randolph182/ubuntupy
+        name: py-serv
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: kubpy
+  name: kubpy-srv
+  namespace: proyecto2
+spec:
+  ports:
+  - port: 5000
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: kubpy
+  type: ClusterIP
