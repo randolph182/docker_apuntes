@@ -7,3 +7,4 @@ RUN /usr/bin/pip3 install asyncio-nats-client
 RUN /usr/bin/pip3 install pymongo
 RUN /usr/bin/pip3 install redis
 COPY servercli.py /home/
+ENTRYPOINT ["/usr/bin/python3.6", "/home/servercli.py"]
