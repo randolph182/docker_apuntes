@@ -5,9 +5,9 @@ metadata:
   labels:
     app: kubgolang
   name: kubgolang
-  namespace: proyecto2
+  namespace: default
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: kubgolang
@@ -17,7 +17,7 @@ spec:
         app: kubgolang
     spec:
       containers:
-      - image: randolph182/golang-webserver
+      - image: randolph182/gos
         name: golang-webserver
         ports:
         - containerPort: 8080
@@ -28,9 +28,8 @@ metadata:
   labels:
     app: kubgolang
   name: kubgolang-srv
-  namespace: proyecto2
+  namespace: default
 spec:
-  clusterIP: 10.24.10.39
   ports:
   - port: 8080
     protocol: TCP
