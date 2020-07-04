@@ -5,16 +5,16 @@ metadata:
   labels:
     app: kubpy
   name: kubpy
-  namespace: proyecto2
+  namespace: default
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: kubpy
   template:
     metadata:
       labels:
-        app: kubkpy
+        app: kubpy
     spec:
       containers:
       - image: randolph182/ubuntupy
@@ -28,7 +28,7 @@ metadata:
   labels:
     app: kubpy
   name: kubpy-srv
-  namespace: proyecto2
+  namespace: default
 spec:
   ports:
   - port: 5000
