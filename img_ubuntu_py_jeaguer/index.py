@@ -32,7 +32,7 @@ async def run(loop):
     async def message_handler(msg):
         data = json.loads(msg.data.decode())
         #aca se empizan a enviar los datos a las bases de datos
-        con=pymongo.MongoClient('34.70.196.45',27017)
+        con=pymongo.MongoClient('35.238.115.111',27017)
         try:
             db=con.proyecto2
             db.casos.insert({"name":data["name"],"depto":data["depto"],"age":data["age"],"form":data["form"],"state":data["state"]})
@@ -43,12 +43,14 @@ async def run(loop):
         except Exception as e:
             print(e)
             print("problemas con la conexion de mongo")
+            span = tracer.get_current_span()
+                span.set_attribute(e, True)
         finally:
             con.close()
         #print(data)
         # ======== enviando datos a redis ================
         try:
-            r = redis.Redis(host='34.70.196.45',port=6379)
+            r = redis.Redis(host='35.238.115.111',port=6379)
             r.rpush('proyecto2','{"name" : "'+data["name"]+'", "depto" : "'+data["depto"]+'", "age" :'+str(data["age"])+', "form" : "'+data["form"]+'", "state" : "'+data["state"]+'"}')
             print("datos enviados a redis")
             with tracer.start_as_current_span("redis"):
@@ -57,6 +59,8 @@ async def run(loop):
         except Exception as e:
             print(e)
             print("hay problemas en la conexion con redis")
+            span = tracer.get_current_span()
+            span.set_attribute(e, True)
         print(data)
     await nc.subscribe("updates", cb=message_handler)
 
