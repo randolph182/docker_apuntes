@@ -21,7 +21,7 @@ async def run(loop):
                 'param': 1,
             },
             'local_agent': {
-                'reporting_host': "35.247.27.111",
+                'reporting_host': "34.72.72.45",
                 'reporting_port': 5775,
             },
             'logging': True,
