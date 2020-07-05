@@ -26,7 +26,7 @@ trace.get_tracer_provider().add_span_processor(
 opentelemetry.ext.requests.RequestsInstrumentor().instrument()
 
 async def run(loop):
-    await nc.connect(servers=["http://35.223.171.148:4222"])
+    await nc.connect(servers=["http://35.222.9.82:4222"])
     future = asyncio.Future()
 
     async def message_handler(msg):
