@@ -1,0 +1,5 @@
+requests
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-ext-jaeger
+opentelemetry-ext-requests
