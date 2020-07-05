@@ -37,7 +37,9 @@ async def run(loop):
             db=con.proyecto2
             db.casos.insert({"name":data["name"],"depto":data["depto"],"age":data["age"],"form":data["form"],"state":data["state"]})
             print("datos enviados a mongo")
-            with tracer.start_as_current_span("step1"):
+            with tracer.start_as_current_span("Mongo"):
+                span = tracer.get_current_span()
+                span.set_attribute(data, True)
         except Exception as e:
             print(e)
             print("problemas con la conexion de mongo")
@@ -49,6 +51,9 @@ async def run(loop):
             r = redis.Redis(host='34.70.196.45',port=6379)
             r.rpush('proyecto2','{"name" : "'+data["name"]+'", "depto" : "'+data["depto"]+'", "age" :'+str(data["age"])+', "form" : "'+data["form"]+'", "state" : "'+data["state"]+'"}')
             print("datos enviados a redis")
+            with tracer.start_as_current_span("redis"):
+                span = tracer.get_current_span()
+                span.set_attribute(data, True)
         except Exception as e:
             print(e)
             print("hay problemas en la conexion con redis")
